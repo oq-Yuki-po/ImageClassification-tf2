@@ -31,6 +31,7 @@
 		"python.autoComplete.extraPaths": [
 			"/usr/local/lib/python3.8/site-packages"
 		],
+		"python.sortImports.args": ["--line-width", "120"],
 		"editor.rulers": [
 			120
 		],
