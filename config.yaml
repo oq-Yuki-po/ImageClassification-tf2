@@ -1,0 +1,9 @@
+input_width: 256
+input_height: 256
+input_chanel: 3
+
+batch_size: 32
+epochs: 10
+
+dataset: 'food101'
+is_download: False
