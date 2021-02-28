@@ -98,6 +98,7 @@ sklearn==0.0
 tensorboard==2.4.0
 tensorboard-plugin-wit==1.7.0
 tensorflow==2.4.0
+tensorflow-addons==0.12.1
 tensorflow-datasets==4.2.0
 tensorflow-estimator==2.4.0
 tensorflow-metadata==0.28.0
@@ -109,6 +110,7 @@ toml==0.10.2
 tornado==6.1
 tqdm==4.57.0
 traitlets==5.0.5
+typeguard==2.11.1
 typer==0.3.2
 typing-extensions==3.7.4.3
 urllib3==1.26.2
