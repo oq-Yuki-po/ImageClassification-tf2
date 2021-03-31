@@ -7,3 +7,11 @@ epochs: 10
 
 dataset: 'food101'
 is_download: False
+
+# tfrecor convert
+train_row_images: 'datasets/fruits-360/train'
+test_row_images: 'datasets/fruits-360/test'
+image_extension: 'jpg'
+saved_dir: 'datasets'
+tfrecod_train_name: 'fruits_train.tfrecords'
+tfrecod_test_name: 'fruits_test.tfrecords'
