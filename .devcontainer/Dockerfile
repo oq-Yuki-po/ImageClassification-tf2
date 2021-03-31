@@ -16,8 +16,7 @@ RUN pip install --upgrade pip \
     && rm -rf /tmp/pip-tmp
 
 # [Optional] Uncomment this section to install additional OS packages.
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
-    && apt-get update && export DEBIAN_FRONTEND=noninteractive \
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
     libopencv-dev \
     python3-opencv
@@ -25,3 +24,5 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - \
 EXPOSE 8888 6006
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
+ENV TF_CPP_MIN_LOG_LEVEL="3"
+ENV PYTHONPATH "${PYTHONPATH}:/workspaces/ImageClassification-tf2"
