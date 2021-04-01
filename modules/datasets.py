@@ -1,5 +1,6 @@
 import tensorflow as tf
 import tensorflow_datasets as tfds
+from tensorflow.python.data.ops.dataset_ops import MapDataset
 
 
 def load_datasets(config):
@@ -22,3 +23,27 @@ def scale(image, label, config):
     image /= 255.0
     image = tf.image.resize(image, [config['input_width'], config['input_height']])
     return image, label
+
+
+def load_tfrecords(path: str) -> MapDataset:
+    """load tfrecords"""
+
+    raw_dataset = tf.data.TFRecordDataset(path)
+
+    feature_description = {
+        'label': tf.io.FixedLenFeature([], tf.int64),
+        'image_raw': tf.io.FixedLenFeature([], tf.string),
+    }
+
+    def _parse_function(example):
+
+        feature = tf.io.parse_single_example(example, feature_description)
+
+        image = tf.image.decode_jpeg(feature['image_raw'], channels=3)
+        label = feature['label']
+
+        return image, label
+
+    parsed_dataset = raw_dataset.map(_parse_function)
+
+    return parsed_dataset
