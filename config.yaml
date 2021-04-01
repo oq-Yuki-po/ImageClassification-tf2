@@ -1,12 +1,19 @@
-input_width: 256
-input_height: 256
+input_width: 100
+input_height: 100
 input_chanel: 3
 
 batch_size: 32
-epochs: 10
+epochs: 2
+num_of_classes: 131
 
 dataset: 'food101'
 is_download: False
+
+# train
+train_data: 'datasets/fruits_train.tfrecords'
+test_data: 'datasets/fruits_test.tfrecords'
+train_image_count: 67692
+test_image_count: 22688
 
 # tfrecor convert
 train_row_images: 'datasets/fruits-360/train'
