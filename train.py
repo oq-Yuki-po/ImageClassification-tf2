@@ -21,10 +21,10 @@ def main(config_path: str = 'config.yaml'):
     typer.secho(f"loaded train dataset : {config['train_data']}", fg=typer.colors.GREEN)
     typer.secho(f"loaded test dataset : {config['test_data']}", fg=typer.colors.GREEN)
 
-    train_ds = load_tfrecords(config['train_data'])
-    test_ds = load_tfrecords(config['test_data'])
+    train_ds = load_tfrecords(config['train_data'], config)
+    test_ds = load_tfrecords(config['test_data'], config)
 
-    train_ds = (train_ds.shuffle(buffer_size=config['train_image_count'])
+    train_ds = (train_ds.shuffle(buffer_size=config['train_image_count'] // 10)
                 .repeat()
                 .batch(config['batch_size'])
                 .prefetch(buffer_size=AUTOTUNE))

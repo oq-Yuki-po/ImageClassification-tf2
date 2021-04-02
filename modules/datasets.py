@@ -25,7 +25,7 @@ def scale(image, label, config):
     return image, label
 
 
-def load_tfrecords(path: str) -> MapDataset:
+def load_tfrecords(path: str, config: dict) -> MapDataset:
     """load tfrecords"""
 
     raw_dataset = tf.data.TFRecordDataset(path)
@@ -40,6 +40,8 @@ def load_tfrecords(path: str) -> MapDataset:
         feature = tf.io.parse_single_example(example, feature_description)
 
         image = tf.image.decode_jpeg(feature['image_raw'], channels=3)
+        if config['is_resize']:
+            image = tf.image.resize(image, [config['input_height'], config['input_width']])
         label = feature['label']
 
         return image, label

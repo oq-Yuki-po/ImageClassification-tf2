@@ -1,24 +1,29 @@
-input_width: 100
-input_height: 100
+input_width: 250
+input_height: 250
 input_chanel: 3
 
-batch_size: 32
+batch_size: 16
 epochs: 2
-num_of_classes: 131
+num_of_classes: 101
 
 dataset: 'food101'
 is_download: False
 
 # train
-train_data: 'datasets/fruits_train.tfrecords'
-test_data: 'datasets/fruits_test.tfrecords'
-train_image_count: 67692
-test_image_count: 22688
+train_data: 'datasets/food_train.tfrecords'
+test_data: 'datasets/food_test.tfrecords'
+train_image_count: 75750
+test_image_count: 25250
+is_resize: True
+# food 101
+# train 75750 test 25250
+# fruits 360
+# train 67692 test 22688
 
 # tfrecor convert
-train_row_images: 'datasets/fruits-360/train'
-test_row_images: 'datasets/fruits-360/test'
+train_row_images: 'datasets/food101/train'
+test_row_images: 'datasets/food101/test'
 image_extension: 'jpg'
 saved_dir: 'datasets'
-tfrecod_train_name: 'fruits_train.tfrecords'
-tfrecod_test_name: 'fruits_test.tfrecords'
+tfrecod_train_name: 'food_train.tfrecords'
+tfrecod_test_name: 'food_test.tfrecords'
