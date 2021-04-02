@@ -52,7 +52,7 @@ def main(config_path: str = 'config.yaml'):
 
     model.summary()
     log_dir = f'logs/{config["base_model"]}'
-    os.mkdir(log_dir)
+    os.makedirs(log_dir, exist_ok=True)
 
     tfboard_callbacks = tf.keras.callbacks.TensorBoard(log_dir=log_dir)
 
