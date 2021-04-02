@@ -2,6 +2,7 @@ import tensorflow as tf
 import typer
 from tensorflow.keras import layers
 
+from models import build_model
 from modules.datasets import load_tfrecords
 from modules.utils import load_yaml
 
@@ -10,7 +11,7 @@ AUTOTUNE = tf.data.experimental.AUTOTUNE
 
 def main(config_path: str = 'config.yaml'):
 
-    typer.secho("----- start training -----", fg=typer.colors.GREEN)
+    typer.secho("--------------- start training ---------------", fg=typer.colors.GREEN)
 
     # load config
     config = load_yaml('config.yaml')
@@ -33,17 +34,15 @@ def main(config_path: str = 'config.yaml'):
                .batch(config['batch_size'])
                .prefetch(buffer_size=AUTOTUNE))
 
+    typer.secho("--------------- build model ---------------", fg=typer.colors.GREEN)
+
     input_shape = (config['input_width'], config['input_height'], config['input_chanel'])
 
-    model = tf.keras.models.Sequential()
-    model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=input_shape))
-    model.add(layers.MaxPooling2D((2, 2)))
-    model.add(layers.Conv2D(64, (3, 3), activation='relu'))
-    model.add(layers.MaxPooling2D((2, 2)))
-    model.add(layers.Conv2D(64, (3, 3), activation='relu'))
-    model.add(layers.Flatten())
-    model.add(layers.Dense(64, activation='relu'))
-    model.add(layers.Dense(config['num_of_classes'], activation='softmax'))
+    typer.secho(f"base model : {config['base_model']}", fg=typer.colors.GREEN)
+
+    inputs = tf.keras.Input(shape=input_shape)
+
+    model = build_model(config, inputs)
 
     model.compile(optimizer='adam',
                   loss='sparse_categorical_crossentropy',
@@ -57,7 +56,7 @@ def main(config_path: str = 'config.yaml'):
               validation_steps=config['test_image_count'] // config['batch_size'],
               epochs=config['epochs'])
 
-    typer.secho("----- end training -----", fg=typer.colors.GREEN)
+    typer.secho("--------------- end training ---------------", fg=typer.colors.GREEN)
 
 
 if __name__ == '__main__':

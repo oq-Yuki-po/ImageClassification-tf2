@@ -20,6 +20,9 @@ is_resize: True
 # fruits 360
 # train 67692 test 22688
 
+is_base_model_freeze: False
+base_model: 'VGG16'
+
 # tfrecor convert
 train_row_images: 'datasets/food101/train'
 test_row_images: 'datasets/food101/test'
