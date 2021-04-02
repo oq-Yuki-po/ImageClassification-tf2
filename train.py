@@ -1,3 +1,5 @@
+import os
+
 import tensorflow as tf
 import typer
 from tensorflow.keras import layers
@@ -49,12 +51,17 @@ def main(config_path: str = 'config.yaml'):
                   metrics=['accuracy'])
 
     model.summary()
+    log_dir = f'logs/{config["base_model"]}'
+    os.mkdir(log_dir)
+
+    tfboard_callbacks = tf.keras.callbacks.TensorBoard(log_dir=log_dir)
 
     model.fit(train_ds,
               steps_per_epoch=config['train_image_count'] // config['batch_size'],
               validation_data=test_ds,
               validation_steps=config['test_image_count'] // config['batch_size'],
-              epochs=config['epochs'])
+              epochs=config['epochs'],
+              callbacks=[tfboard_callbacks])
 
     typer.secho("--------------- end training ---------------", fg=typer.colors.GREEN)
 
